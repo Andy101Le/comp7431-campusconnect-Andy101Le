@@ -26,7 +26,13 @@ OUT: password resets, ticket creation, personal student records, voice, automati
 actions, and answers from unapproved material. 
   
 ## 6. AI critique and human decision
-- ChatGPT suggestion: <ADD ONE SHORT SUGGESTION>
-- Claude suggestion: <ADD ONE SHORT SUGGESTION>
+- ChatGPT suggestion: Section 2 — Evidence carried forward from Week 2
+Specific problem: E-01 and E-02 are still placeholders, so the requirements are not traceable to actual Week 2 evidence.
+Why it matters: Without the underlying evidence, the rationale for FR-01, GR-01, SF-01, and NFR-01 is unsupported (ASSUMPTION).
+Smallest testable revision: Replace E-01 and E-02 with the two actual anonymized Week 2 observations/quotes, then verify that each requirement can be traced to at least one of them.
+- Claude suggestion: SF-01
+"Insufficient" and "helpful IT Support next step" are undefined, so no tester can decide pass or fail, and "shall not invent an answer" states a negative with no observable output.
+SF-01 is the MVP's safe-failure guarantee (Section 5), so if it can't be verified, the core safety claim of the system is unverifiable; ASSUMPTION: this outranks the empty Section 2 placeholders because you intend to fill those from Week 2 notes.
+"When no approved source passage supports a response, the system shall show no answer text, shall state that approved IT Support sources do not cover the question, and shall show one IT Support contact route taken from the approved material (ASSUMPTION: such a route exists there)."
 - My decision: Accepted / Revised / Rejected
 - My reason: <EXPLAIN USING WEEK 2 EVIDENCE, SCOPE, OR TESTABILITY>

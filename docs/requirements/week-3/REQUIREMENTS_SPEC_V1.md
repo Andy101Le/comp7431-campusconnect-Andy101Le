@@ -37,5 +37,5 @@ Smallest testable revision: Replace E-01 and E-02 with the two actual anonymized
 "Insufficient" and "helpful IT Support next step" are undefined, so no tester can decide pass or fail, and "shall not invent an answer" states a negative with no observable output.
 SF-01 is the MVP's safe-failure guarantee (Section 5), so if it can't be verified, the core safety claim of the system is unverifiable; ASSUMPTION: this outranks the empty Section 2 placeholders because you intend to fill those from Week 2 notes.
 "When no approved source passage supports a response, the system shall show no answer text, shall state that approved IT Support sources do not cover the question, and shall show one IT Support contact route taken from the approved material (ASSUMPTION: such a route exists there)."
-- My decision: Accepted / Revised / Rejected
-- My reason: <EXPLAIN USING WEEK 2 EVIDENCE, SCOPE, OR TESTABILITY>
+- My decision: Revise
+- My reason: This matters because E-02 shows students worry about missing deadlines, so a dead end with no contact would fail them

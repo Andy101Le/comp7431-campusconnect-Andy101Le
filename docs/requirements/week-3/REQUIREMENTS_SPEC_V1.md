@@ -10,9 +10,9 @@ next step because the current experience may be scattered, difficult to search, 
 hard to verify as current. 
   
 ## 2. Evidence carried forward from Week 2
-- E-01: <PASTE ONE ANONYMIZED QUOTE OR OBSERVATION FROM THE TEAM EXERCISE>
-- E-02: <PASTE ONE SECOND ANONYMIZED QUOTE OR OBSERVATION>
-- A-01: <NAME ONE ASSUMPTION THAT STILL NEEDS VALIDATION> 
+- E-01: Jordan says "I did not know what the university called it and did not know the term."
+- E-02: Jordan says that he is "worried about missing a deadline and looking careless."
+- A-01: Users don't check the FAQ before contacting IT Support.
   
 ## 3. One user journey inside the MVP 
 A student asks one typed IT Support question. CampusConnect searches only approved 

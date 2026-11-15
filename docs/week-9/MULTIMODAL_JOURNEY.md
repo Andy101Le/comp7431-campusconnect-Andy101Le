@@ -34,3 +34,10 @@ Tested on: 2026-11-15, Lovable preview of "CampusConnect Multimodal Help"
   - The unsupported question is routed to the IT Service Desk entry rather than an explicit "I can't answer that" plus the right office (dining services).
   - app/ holds only the files changed in Week 9, not the full Lovable project, so it does not build on its own.
   - The voice journey was not run end to end in this check.
+
+## Review and submission
+- Pull request: https://github.com/Andy101Le/comp7431-campusconnect-Andy101Le/pull/5
+- Reviewer: no partner review; author self-check posted on the PR instead
+- Review decision: REQUEST CHANGES (check 1, RAG answer and citation: REVISE; checks 2-6: PASS)
+- Correction made: none yet. Requested change: point the text answer path at the approved CampusConnect RAG source instead of the Lovable-written guide, then rerun Journey A.
+- Pull request left open (not merged).

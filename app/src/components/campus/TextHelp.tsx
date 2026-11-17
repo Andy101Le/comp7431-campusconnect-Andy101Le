@@ -1,13 +1,12 @@
 import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
-import { answerQuestion, type HelpResult } from "@/lib/campus-guide";
+import { answerQuestion, REFERRAL_MESSAGE, type HelpResult } from "@/lib/campus-guide";
 
 export const QUESTION_INPUT_ID = "campus-question";
 
 const SUGGESTIONS = [
   "How do I reset my password?",
   "How do I connect to secure campus Wi-Fi?",
-  "How do I contact the IT Service Desk?",
 ];
 
 export function focusTextQuestion() {
@@ -20,8 +19,10 @@ export function TextHelp() {
   const [question, setQuestion] = useState("");
   const [asked, setAsked] = useState("");
   const [result, setResult] = useState<HelpResult | null>(null);
+  const [showSource, setShowSource] = useState(false);
 
   const ask = (q: string) => {
+    setShowSource(false);
     setAsked(q.trim());
     setResult(answerQuestion(q));
   };
@@ -98,15 +99,29 @@ export function TextHelp() {
               <>
                 <p className="mt-3 leading-relaxed">{result.entry.answer}</p>
                 <p className="mt-3 text-sm text-muted-foreground">
-                  Source: approved guide — {result.entry.title}
+                  Source: {result.entry.title}
                 </p>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="mt-3"
+                  aria-expanded={showSource}
+                  aria-controls="answer-source"
+                  onClick={() => setShowSource((v) => !v)}
+                >
+                  {showSource ? "Hide source" : "View source"}
+                </Button>
+                {showSource && (
+                  <div id="answer-source" className="mt-3 rounded-md border p-3 text-sm">
+                    <p className="font-semibold">{result.entry.title}</p>
+                    <p className="mt-2 leading-relaxed">{result.entry.answer}</p>
+                  </div>
+                )}
               </>
             )}
             {result.status === "referred" && (
-              <p className="mt-3 leading-relaxed">
-                The approved guide doesn't cover this, so I can't answer it. Please contact the IT
-                Service Desk and a staff member will help you.
-              </p>
+              <p className="mt-3 leading-relaxed">{REFERRAL_MESSAGE}</p>
             )}
             {result.status === "sensitive" && (
               <p className="mt-3 leading-relaxed">

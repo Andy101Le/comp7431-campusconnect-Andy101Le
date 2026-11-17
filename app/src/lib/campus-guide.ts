@@ -14,26 +14,22 @@ export type GuideEntry = {
 export const APPROVED_GUIDE: GuideEntry[] = [
   {
     id: "password-reset",
-    title: "Resetting your campus password",
-    keywords: ["password", "reset", "forgot", "locked", "lockout", "login", "sign", "account", "change"],
+    title: "campusconnect password help.txt",
+    keywords: ["password", "reset", "forgot", "locked", "lockout", "login"],
     answer:
-      "Use the official campus self-service password reset page from the campus IT website. You will verify your identity with your registered recovery method, then choose a new password. If you are locked out or cannot verify, contact the IT Service Desk. Never share your password or recovery codes with anyone, including staff.",
+      "For password reset help visit the CampusConnect IT Help Desk. Bring your university ID. Staff will never ask for your current password or recovery code. When requesting help include your device type the exact error message and the time the problem occurred.",
   },
   {
     id: "wifi",
-    title: "Connecting to secure campus Wi-Fi",
-    keywords: ["wifi", "wi-fi", "wireless", "internet", "network", "connect", "eduroam", "secure", "laptop", "phone"],
+    title: "campusconnect wifi help.txt",
+    keywords: ["wifi", "wireless", "network", "connect", "secure"],
     answer:
-      "Connect to the secure campus Wi-Fi network (not the open guest network) and sign in with your campus username and password. If your device asks to trust a certificate, only accept it on the official campus network. If you still cannot connect, forget the network, reconnect, and then contact the IT Service Desk.",
-  },
-  {
-    id: "service-desk",
-    title: "Contacting the IT Service Desk",
-    keywords: ["service", "desk", "help", "helpdesk", "support", "contact", "ticket", "hours", "staff", "human", "person"],
-    answer:
-      "The IT Service Desk handles anything this guide does not cover. Use the contact options listed on the campus IT website to open a ticket or speak with a staff member. Describe the problem, but do not include passwords, recovery codes, or student records.",
+      "Select CampusConnect Secure from the available networks. Use your university username. If setup fails forget the network and reconnect. When contacting IT Support include the device type the exact error message and the time the problem occurred.",
   },
 ];
+
+export const REFERRAL_MESSAGE =
+  "CampusConnect only answers campus IT questions about password help and Wi-Fi. I can't answer that. Please contact the right campus office or a staff member.";
 
 export type HelpResult =
   | { status: "answered"; entry: GuideEntry }
@@ -49,7 +45,7 @@ const SENSITIVE_PATTERNS = [
   /\b\d{3}-\d{2}-\d{4}\b/,
 ];
 
-const MIN_SCORE = 1;
+const MIN_SCORE = 2;
 
 function tokenize(text: string): string[] {
   return text

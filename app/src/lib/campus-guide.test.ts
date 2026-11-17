@@ -1,24 +1,43 @@
 import { describe, expect, it } from "vitest";
-import { answerQuestion } from "./campus-guide";
+import { answerQuestion, APPROVED_GUIDE } from "./campus-guide";
+
+const passage = (id: string) => APPROVED_GUIDE.find((e) => e.id === id)!.answer;
 
 describe("CampusConnect answer logic", () => {
-  it("answers a password reset question from the approved guide", () => {
+  it("has exactly the two approved entries", () => {
+    expect(APPROVED_GUIDE.map((e) => e.title)).toEqual([
+      "campusconnect password help.txt",
+      "campusconnect wifi help.txt",
+    ]);
+  });
+
+  it("answers a password question with the password passage", () => {
     const result = answerQuestion("How do I reset my password?");
     expect(result.status).toBe("answered");
-    if (result.status === "answered") expect(result.entry.id).toBe("password-reset");
+    if (result.status === "answered") {
+      expect(result.entry.answer).toBe(passage("password-reset"));
+      expect(result.entry.answer.startsWith("For password reset help visit")).toBe(true);
+    }
   });
 
-  it("answers a Wi-Fi question from the approved guide", () => {
-    const result = answerQuestion("I can't connect to campus Wi-Fi");
+  it("refers the Thanksgiving dining hall hours question", () => {
+    expect(answerQuestion("What are the dining hall hours over Thanksgiving?").status).toBe("referred");
+  });
+
+  it("answers a Wi-Fi question with the Wi-Fi passage", () => {
+    const result = answerQuestion("How do I connect to secure campus Wi-Fi?");
     expect(result.status).toBe("answered");
-    if (result.status === "answered") expect(result.entry.id).toBe("wifi");
+    if (result.status === "answered") {
+      expect(result.entry.answer).toBe(passage("wifi"));
+      expect(result.entry.answer.startsWith("Select CampusConnect Secure")).toBe(true);
+    }
   });
 
-  it("refers unsupported questions to a human", () => {
-    expect(answerQuestion("What is on the cafeteria menu today?").status).toBe("referred");
+  it("needs at least 2 keyword matches", () => {
+    expect(answerQuestion("password").status).toBe("referred");
   });
 
-  it("refuses to process questions that contain a password", () => {
+  it("refuses questions that contain a password", () => {
     expect(answerQuestion("my password is hunter2, can you log in for me").status).toBe("sensitive");
   });
 });

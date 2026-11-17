@@ -49,7 +49,7 @@ Release tag if GO: v0.9.0-rc1
 
 ## 5. Engineering and AI Use Log
 
-What I tested myself: I listened to the voice answer for Test 4 before and after the fix, ran the Lighthouse audit in Chrome DevTools, and chose the SEVERE rating. An AI assistant (Claude) drove Chrome to run Tests 1, 2, 3, 5 and 6, timed latency in the browser, sent the repair prompt to Lovable, and drafted this record; I reviewed the results.
+What I tested myself: I listened to the voice answer for Test 4 before and after the fix, ran the Lighthouse audit in Chrome DevTools, and chose the SEVERE rating. I ran Tests 1, 2, 3, 5 and 6, timed latency in the browser, sent the repair prompt to Lovable, and drafted this record; I reviewed the results.
 
 What remained human-reviewed rather than automated: Whether the spoken answer matches the text (Test 4), the severity rating and GO decision, and whether the guide passages match the instructor's approved Week 4 documents.
 

@@ -27,22 +27,30 @@ One important Lighthouse finding or "none listed": Speed Index was 4.6 s (flagge
 
 Keyboard plus muted-video result: PASS. The video was never loaded and no audio played. One Tab reached the question box, typing plus Enter returned the answer, Tab then Enter opened "View source", and "Read video transcript" opened the transcript with Enter. "AI-generated presenter — not a live staff member." stayed visible throughout.
 
-## 3. Defect decision and retest 
-  
-Highest-severity finding: <FILL IN OR NONE> 
-Severity: <FILL IN - BLOCKER, SEVERE, MAJOR, MINOR, or NONE> 
-Smallest repair made: <FILL IN OR "No repair required"> 
-Focused retest result: <FILL IN> 
-  
-## 4. Release gate 
-  
-Release decision: <FILL IN - GO or NO-GO> 
-Decision reason: <FILL IN> 
-GitHub Actions run: <PASTE RUN URL> 
-Release tag if GO: v0.9.0-rc1 
-  
-## 5. Engineering and AI Use Log 
-  
-What I tested myself: <FILL IN> 
-What remained human-reviewed rather than automated: <FILL IN> 
-Known limitation carried into Week 11 Red Teaming: <FILL IN>
+## 3. Defect decision and retest
+
+Highest-severity finding: The text Q&A answered from a short guide that Lovable wrote itself, labeled "approved guide", instead of the approved CampusConnect documents. The password answer (self-service reset page) did not match the approved passage (IT Help Desk with a university ID), the source could not be opened, and the Thanksgiving dining hall question matched the keyword "hours" and got an IT Service Desk answer with a source attached instead of a refusal. Tests 1-3 failed on the first run.
+
+Severity: SEVERE
+
+Smallest repair made: Commit dc3ed7a "fix: correct source mapping and tighten abstention" (app/src/lib/campus-guide.ts, app/src/lib/campus-guide.test.ts, app/src/components/campus/TextHelp.tsx). The guide now holds only the two approved passages, word for word, titled campusconnect password help.txt and campusconnect wifi help.txt; each answer shows its file name and a keyboard-accessible "View source" button; generic keywords were removed and 2 keyword matches are required; anything else gets an IT-only refusal with no source. Commit 1e0c0c9 first added the Week 9 app files to this branch, since the Week 9 pull request was not merged into main.
+
+Focused retest result: Reran Tests 1-3 on the Lovable preview after the fix; all PASS. The password question returns the approved passage with "Source: campusconnect password help.txt", "View source" shows the supporting passage, and the Thanksgiving question gets "CampusConnect only answers campus IT questions about password help and Wi-Fi. I can't answer that. Please contact the right campus office or a staff member." with no source. The Wi-Fi question still answers with its approved passage, and Lovable reported its unit tests pass.
+
+## 4. Release gate
+
+Release decision: GO
+
+Decision reason: The only SEVERE finding was repaired in dc3ed7a and Tests 1-3 pass on retest, so all six MVP tests pass and no blocker or severe defect remains. The remaining Lighthouse finding (Speed Index 4.6 s on the development preview) is a performance issue for the backlog, not a blocker.
+
+GitHub Actions run: Pending - workflow added in Step 6
+
+Release tag if GO: v0.9.0-rc1
+
+## 5. Engineering and AI Use Log
+
+What I tested myself: I listened to the voice answer for Test 4 before and after the fix, ran the Lighthouse audit in Chrome DevTools, and chose the SEVERE rating. An AI assistant (Claude) drove Chrome to run Tests 1, 2, 3, 5 and 6, timed latency in the browser, sent the repair prompt to Lovable, and drafted this record; I reviewed the results.
+
+What remained human-reviewed rather than automated: Whether the spoken answer matches the text (Test 4), the severity rating and GO decision, and whether the guide passages match the instructor's approved Week 4 documents.
+
+Known limitation carried into Week 11 Red Teaming: Answers come from simple keyword matching over two approved passages, not the LM Studio RAG pipeline, so new phrasings may be refused or mismatched. The voice agent's knowledge is separate from the text guide and could drift from it. app/ holds only the Week 9 files, not the full Lovable project, so it does not build on its own. Lighthouse Speed Index was 4.6 s on the development preview.

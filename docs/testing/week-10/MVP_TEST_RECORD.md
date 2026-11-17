@@ -43,7 +43,7 @@ Release decision: GO
 
 Decision reason: The only SEVERE finding was repaired in dc3ed7a and Tests 1-3 pass on retest, so all six MVP tests pass and no blocker or severe defect remains. The remaining Lighthouse finding (Speed Index 4.6 s on the development preview) is a performance issue for the backlog, not a blocker.
 
-GitHub Actions run: Pending - workflow added in Step 6
+GitHub Actions run: https://github.com/Andy101Le/comp7431-campusconnect-Andy101Le/actions/runs/43990697256 (Week 10 Release Check #1, green on commit e5f4300; all steps passed: "Syntax OK: 7 files", record present, no tracked .env, no unfilled evidence markers, Release decision: GO). The compile step was adapted from the lab template because the MVP is a Lovable TypeScript app with no app.py or requirements.txt: it syntax-checks every .ts/.tsx file in app/src with the TypeScript compiler instead of py_compile. The evidence and secret-hygiene step is unchanged.
 
 Release tag if GO: v0.9.0-rc1
 

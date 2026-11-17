@@ -1,0 +1,50 @@
+name: Week 10 Release Check
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  release-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      # Adapted from the lab template: the MVP is a Lovable TypeScript app (no app.py),
+      # so this step syntax-checks every .ts/.tsx file under app/src instead of py_compile.
+      - name: Syntax-check the CampusConnect app
+        run: |
+          test -f app/src/routes/index.tsx
+          test -f app/src/lib/campus-guide.ts
+          test -f app/src/components/campus/TextHelp.tsx
+          npm install --no-save --no-package-lock typescript@5
+          node -e '
+          const ts = require("typescript"), fs = require("fs"), path = require("path");
+          let bad = 0, count = 0;
+          (function walk(d) {
+            for (const f of fs.readdirSync(d)) {
+              const p = path.join(d, f);
+              if (fs.statSync(p).isDirectory()) { walk(p); continue; }
+              if (!/\.tsx?$/.test(p)) continue;
+              count++;
+              const r = ts.transpileModule(fs.readFileSync(p, "utf8"), { fileName: p, reportDiagnostics: true, compilerOptions: { jsx: ts.JsxEmit.Preserve } });
+              for (const x of r.diagnostics) { bad++; console.log(p + ": " + ts.flattenDiagnosticMessageText(x.messageText, "\n")); }
+            }
+          })("app/src");
+          if (bad) process.exit(1);
+          console.log("Syntax OK: " + count + " files");
+          '
+      - name: Verify release evidence and secret hygiene
+        run: |
+          test -f docs/testing/week-10/MVP_TEST_RECORD.md
+          if git ls-files | grep -Eq '(^|/)\.env$'; then
+             echo "A tracked .env file is not allowed."
+             exit 1
+          fi
+          if grep -q '<FILL IN>' docs/testing/week-10/MVP_TEST_RECORD.md; then
+             echo "Complete every Week 10 evidence field."
+             exit 1
+          fi
+          grep -q '^Release decision: GO$' docs/testing/week-10/MVP_TEST_RECORD.md

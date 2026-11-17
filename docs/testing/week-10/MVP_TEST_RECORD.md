@@ -20,8 +20,11 @@ Environment: Chrome on Windows 11; Lovable preview (keyword retrieval from app/s
 ## 2. Lighthouse and manual accessibility evidence
 
 Performance score: 85 (Chrome DevTools Lighthouse, Navigation mode, Desktop, Lovable preview page)
+
 Accessibility score: 100
+
 One important Lighthouse finding or "none listed": Speed Index was 4.6 s (flagged red) even though First Contentful Paint was 1.2 s, Largest Contentful Paint 1.3 s, Total Blocking Time 0 ms and Cumulative Layout Shift 0. Top insights were document request latency (est. 680 ms savings) and reduce unused JavaScript (est. 838 KiB), with "Minify JavaScript" also listed, which suggests the Lovable preview serves a development build; a published build may score differently. The 100 accessibility score does not prove the page is accessible, so the manual keyboard check below is still required.
+
 Keyboard plus muted-video result: PASS. The video was never loaded and no audio played. One Tab reached the question box, typing plus Enter returned the answer, Tab then Enter opened "View source", and "Read video transcript" opened the transcript with Enter. "AI-generated presenter — not a live staff member." stayed visible throughout.
 
 ## 3. Defect decision and retest 
